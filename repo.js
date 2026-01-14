@@ -9,8 +9,8 @@ async function renderRepo(container, repo) {
 
     div.innerHTML = `
     <h3><a href="${repo.html_url}" target="_blank">${repo.full_name}</a></h3>
-    <p>${repo.description || "설명 없음"}</p>
-    <div class="pushed_at">Last update: ${when_pushed(repo.pushed_at)}</div>
+    <p>${repo.description}</p>
+    <div class="pushed_at">${when_pushed(repo.pushed_at)}</div>
     <div class="badges">releases: ${badgeHTML}</div>`;
     container.appendChild(div);
 }
@@ -68,7 +68,7 @@ async function getReleases(name) {
     const svg = await res.text();
 
     if (svg.includes(">0<")) return "";
-    return `<img
+    return `Last update: <img
         src="https://img.shields.io/github/downloads/${name}/total.svg?logo=github"
         alt="downloads"/>`;
 }
