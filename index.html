@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>GitHub Repo List</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+
+    .repo {
+      border: 1px solid #ddd;
+      padding: 12px;
+      margin-bottom: 10px;
+    }
+
+    .top {
+      background: #f5f7ff;
+    }
+
+    .langs span {
+      margin-right: 8px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>My GitHub Projects</h1>
+  <div id="repos"></div>
+  <div id="load">
+    <div><b>Warning: Loading action consumes GitHub API rate limits.</b></div>
+    <button onclick="loadRepos()">load</button>
+  </div>
+
+  <script src="repo.js"></script>
+</body>
+
+</html>
