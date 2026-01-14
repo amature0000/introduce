@@ -7,10 +7,12 @@ async function renderRepo(container, repo) {
     let badgeHTML = await getReleases(repo.full_name);
 
     div.innerHTML = `
-    <h3><a href="${repo.html_url}" target="_blank">${repo.full_name}</a></h3>
-    <div class="badges">${badgeHTML}</div>
-    <p>${repo.description}</p>
-    <div class="pushed_at">Last update: ${when_pushed(repo.pushed_at)}</div>`;
+    <h3><a href="${repo.html_url}" target="_blank">${repo.name}</a></h3>
+    <p>${repo.description || "No description"}</p>
+    <div class="meta">
+        <div class="badges">${badgeHTML}</div>
+        <div class="pushed_at">Last update: ${when_pushed(repo.pushed_at)}</div>
+    </div>`;
     container.appendChild(div);
 }
 
@@ -40,8 +42,10 @@ async function loadRepos() {
     ];
 
     all.sort((a, b) => {
-        const order = { extra: 0, normal: 1 };
-        return order[a.category] - order[b.category];
+        // extra 우선
+        if(a.category != b.category) return a.category == "extra" ? -1 : 1;
+        // pushed_at 기준
+        return new Date(b.pushed_at) - new Date(a.pushed_at);
     });
 
     for (const repo of all) renderRepo(container, repo);
