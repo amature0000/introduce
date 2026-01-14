@@ -48,7 +48,7 @@ async function loadRepos() {
         return new Date(b.pushed_at) - new Date(a.pushed_at);
     });
 
-    for (const repo of all) renderRepo(container, repo);
+    for (const repo of all) await renderRepo(container, repo);
 }
 
 function when_pushed(dateStr) {
