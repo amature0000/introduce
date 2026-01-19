@@ -9,7 +9,7 @@ async function renderRepo(container, repo) {
     <p>${repo.description || "No description"}</p>
     <div class="meta">
         <div class="badges">${repo.badge}</div>
-        <div class="pushed_at">Last update: ${when_pushed(repo.pushed_at)}</div>
+        <div class="pushed_at">Last update: ${repo.whenPushed}</div>
     </div>`;
     container.appendChild(div);
 }
@@ -22,7 +22,6 @@ async function loadRepos() {
     loader.innerHTML = "";
 
     const repos = await fetch(`https://api.github.com/users/${user}/repos?per_page=100`).then(r => r.json());
-    console.log(repos);
 
     const extraRepos = await Promise.all(
         EXTRA.map(r => fetch(`https://api.github.com/repos/${r}`).then(res => res.json()))
@@ -43,6 +42,7 @@ async function loadRepos() {
         all.map(async repo => {
             repo.badge = await getReleases(repo.full_name);
             repo.hasReleases = (repo.badge == "" ? false : true);
+            repo.whenPushed = when_pushed(repo.pushed_at);
         })
     )
 
@@ -54,7 +54,9 @@ async function loadRepos() {
         // pushed_at 기준
         return new Date(b.pushed_at) - new Date(a.pushed_at);
     });
+    console.log(all);
 
+    setCacheRepos(all);
     for (const repo of all) await renderRepo(container, repo);
 }
 
@@ -73,7 +75,6 @@ function when_pushed(dateStr) {
 
 async function getReleases(name) {
     const url = `https://img.shields.io/github/downloads/${name}/total.svg`;
-
     const res = await fetch(url);
     const svg = await res.text();
 
