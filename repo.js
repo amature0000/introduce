@@ -78,7 +78,7 @@ async function getReleases(name) {
     const res = await fetch(url);
     const svg = await res.text();
 
-    if (svg.includes("no releases found")) return "";
+    if (svg.includes("#e05d44")) return "";
     return `<img
         src="https://img.shields.io/github/downloads/${name}/total.svg?logo=github"
         alt="downloads"/>`;
