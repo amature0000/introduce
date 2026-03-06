@@ -78,7 +78,7 @@ async function getReleases(name) {
     const res = await fetch(url);
     const svg = await res.text();
     const condition = String(svg).includes("#e05d44");
-    //console.log(svg, condition); // temp
+    console.log(`${name}: ${condition}`)
     
     if (condition) return "";
     return `<img
