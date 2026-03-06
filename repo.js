@@ -77,9 +77,9 @@ async function getReleases(name) {
     const url = `https://img.shields.io/github/downloads/${name}/total.svg`;
     const res = await fetch(url);
     const svg = await res.text();
-    const condition = String(svg).includes("#e05d44");
+    const condition = String(svg).includes("#e05d44") || String(svg).includes("invalid");
     console.log(`${name}: ${condition}`);
-    console.log(svg);
+
     if (condition) return "";
     return `<img
         src="https://img.shields.io/github/downloads/${name}/total.svg?logo=github"
