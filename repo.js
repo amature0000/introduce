@@ -81,7 +81,5 @@ async function getReleases(name) {
     console.log(`${name}: ${!condition}`);
 
     if (condition) return "";
-    return `<img
-        src="https://img.shields.io/github/downloads/${name}/total.svg"
-        alt="downloads"/>`;
+    return `<img src="https://img.shields.io/github/downloads/${name}/total.svg" alt="downloads"/>`;
 }
