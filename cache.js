@@ -1,5 +1,5 @@
 const CACHE_KEY = "amature0000_repos"
-const EXPIRATION = 24 * 60 * 60 * 1000;
+const EXPIRATION = 60 * 60 * 1000;
 
 function getCachedRepos() {
     const cachedData = localStorage.getItem(CACHE_KEY);
