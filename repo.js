@@ -82,6 +82,6 @@ async function getReleases(name) {
 
     if (condition) return "";
     return `<img
-        src="https://img.shields.io/github/downloads/${name}/total.svg?logo=github"
+        src="https://img.shields.io/github/downloads/${name}/total.svg"
         alt="downloads"/>`;
 }
